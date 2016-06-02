@@ -8,6 +8,7 @@ module Counter
         )
 
 import Html exposing (..)
+import Html.App
 import Html.Attributes exposing (style)
 import Html.Events exposing (onClick)
 import Component.Update as Update
@@ -48,12 +49,12 @@ update msg model =
 -- VIEW
 
 
-view : (Msg -> msg) -> Model -> Html msg
-view tag model =
+view : Model -> Html Msg
+view model =
     div []
-        [ button [ onClick (tag Decrement) ] [ text "-" ]
+        [ button [ onClick Decrement ] [ text "-" ]
         , div [ countStyle ] [ Html.text (toString model) ]
-        , button [ onClick (tag Increment) ] [ text "+" ]
+        , button [ onClick Increment ] [ text "+" ]
         ]
 
 

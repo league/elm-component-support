@@ -9,6 +9,7 @@ module Messages
         )
 
 import Html exposing (Html)
+import Html.App
 import Html.Attributes
 import WebSocket
 import SendMessage as Sender
@@ -88,23 +89,23 @@ update msg model =
 -- SUBSCRIPTIONS
 
 
-subscriptions : (Msg -> msg) -> Model -> Sub msg
-subscriptions tag model =
-    WebSocket.listen echoServer (tag << ReceiveMessage)
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    WebSocket.listen echoServer ReceiveMessage
 
 
 
 -- VIEW
 
 
-view : (Msg -> msg) -> Model -> Html msg
-view tag model =
+view : Model -> Html Msg
+view model =
     Html.div []
-        [ Sender.view (tag << Sender) model.sender
-        , Html.div [] (List.map (viewMessage tag) (List.reverse model.messages))
+        [ Html.App.map Sender <| Sender.view model.sender
+        , Html.div [] (List.map viewMessage (List.reverse model.messages))
         ]
 
 
-viewMessage : (Msg -> msg) -> ( ID, Message.Model ) -> Html msg
-viewMessage tag ( id, message ) =
-    Message.view (tag << Message id) message
+viewMessage : ( ID, Message.Model ) -> Html Msg
+viewMessage ( id, message ) =
+    Html.App.map (Message id) <| Message.view message

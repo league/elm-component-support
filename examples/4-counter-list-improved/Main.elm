@@ -14,9 +14,9 @@ main =
         }
 
 
-view : (CounterList.Msg -> msg) -> CounterList.Model -> Html msg
-view tag model =
-    Html.div [ style ] [ CounterList.view tag model ]
+view : CounterList.Model -> Html CounterList.Msg
+view model =
+    Html.div [ style ] [ CounterList.view model ]
 
 
 style : Html.Attribute msg

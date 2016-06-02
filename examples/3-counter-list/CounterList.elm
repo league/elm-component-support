@@ -8,6 +8,7 @@ module CounterList
         )
 
 import Html exposing (..)
+import Html.App
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Component.Update as Update
@@ -72,21 +73,21 @@ update msg' model =
 -- VIEW
 
 
-view : (Msg -> msg) -> Model -> Html msg
-view tag model =
+view : Model -> Html Msg
+view model =
     let
         counters =
-            List.map (viewCounter tag) model.counters
+            List.map viewCounter model.counters
 
         remove =
-            button [ onClick (tag Remove) ] [ text "Remove" ]
+            button [ onClick Remove ] [ text "Remove" ]
 
         insert =
-            button [ onClick (tag Insert) ] [ text "Add" ]
+            button [ onClick Insert ] [ text "Add" ]
     in
         div [] ([ remove, insert ] ++ counters)
 
 
-viewCounter : (Msg -> msg) -> ( ID, Counter.Model ) -> Html msg
-viewCounter tag ( id, model ) =
-    Counter.view (tag << Counter id) model
+viewCounter : ( ID, Counter.Model ) -> Html Msg
+viewCounter ( id, model ) =
+    Html.App.map (Counter id) <| Counter.view model

@@ -8,6 +8,7 @@ module CounterPair
         )
 
 import Html exposing (..)
+import Html.App
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Component.Update as Update
@@ -57,10 +58,10 @@ update msg' model =
 -- VIEW
 
 
-view : (Msg -> msg) -> Model -> Html msg
-view tag model =
+view : Model -> Html Msg
+view model =
     div []
-        [ Counter.view (tag << Top) model.top
-        , Counter.view (tag << Bottom) model.bottom
-        , button [ onClick (tag Reset) ] [ text "RESET" ]
+        [ Html.App.map Top <| Counter.view model.top
+        , Html.App.map Bottom <| Counter.view model.bottom
+        , button [ onClick Reset ] [ text "RESET" ]
         ]

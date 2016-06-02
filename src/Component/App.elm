@@ -56,16 +56,16 @@ import Component.Update as Update
 program :
     { init : model
     , update : msg -> model -> Update.Action msg model
-    , view : (msg -> msg) -> model -> Html msg
-    , subscriptions : (msg -> msg) -> model -> Sub msg
+    , view : model -> Html msg
+    , subscriptions : model -> Sub msg
     }
     -> Program Never
 program with =
     Html.App.program
         { init = ( with.init, Cmd.none )
-        , view = with.view identity
+        , view = with.view
         , update = Update.program with.update
-        , subscriptions = with.subscriptions identity
+        , subscriptions = with.subscriptions
         }
 
 
@@ -84,13 +84,13 @@ simpler function, something like this:
 beginnerProgram :
     { init : model
     , update : msg -> model -> Update.Action msg model
-    , view : (msg -> msg) -> model -> Html msg
+    , view : model -> Html msg
     }
     -> Program Never
 beginnerProgram with =
     Html.App.program
         { init = ( with.init, Cmd.none )
-        , view = with.view identity
+        , view = with.view
         , update = Update.program with.update
         , subscriptions = \model -> Sub.none
         }

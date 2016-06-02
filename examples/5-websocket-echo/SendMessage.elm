@@ -8,6 +8,7 @@ module SendMessage
         )
 
 import Html exposing (..)
+import Html.App
 import Component.Update as Update
 import Button
 import TextBox
@@ -71,10 +72,10 @@ update msg model =
 -- VIEW
 
 
-view : (Msg -> msg) -> Model -> Html msg
-view tag model =
+view : Model -> Html Msg
+view model =
     div []
         [ Html.p [] [ Html.text "Type a message then press Enter or click Send" ]
-        , TextBox.view (tag << Text) model.text "Message to send"
-        , Button.view (tag << Send) model.send "Send"
+        , TextBox.view Text model.text "Message to send"
+        , Html.App.map Send <| Button.view model.send "Send"
         ]

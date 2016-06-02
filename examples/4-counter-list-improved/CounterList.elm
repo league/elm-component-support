@@ -68,22 +68,22 @@ update msg' model =
 -- VIEW
 
 
-view : (Msg -> msg) -> Model -> Html msg
-view tag model =
+view : Model -> Html Msg
+view model =
     let
         counters =
-            List.map (viewCounter tag) model.counters
+            List.map viewCounter model.counters
 
         insert =
-            button [ onClick (tag Insert) ] [ text "Add" ]
+            button [ onClick Insert ] [ text "Add" ]
     in
         div [] (insert :: counters)
 
 
-viewCounter : (Msg -> msg) -> ( ID, Counter.Model ) -> Html msg
-viewCounter tag ( id, model ) =
+viewCounter : ( ID, Counter.Model ) -> Html Msg
+viewCounter ( id, model ) =
     let
         remove =
-            button [ onClick (tag <| Remove id) ] [ text "Remove" ]
+            button [ onClick <| Remove id ] [ text "Remove" ]
     in
-        Counter.viewWithButtons (tag << Counter id) model [ remove ]
+        Counter.viewWithButtons (Counter id) model [ remove ]

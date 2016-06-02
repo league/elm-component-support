@@ -16,11 +16,11 @@ main =
         }
 
 
-view : (Messages.Msg -> msg) -> Messages.Model -> Html msg
-view tag model =
+view : Messages.Model -> Html Messages.Msg
+view model =
     Html.div [ style ]
         [ Html.h1 [] [ Html.text "Elm echo sample" ]
-        , Messages.view tag model
+        , Messages.view model
         ]
 
 

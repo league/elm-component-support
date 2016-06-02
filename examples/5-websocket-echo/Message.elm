@@ -52,11 +52,11 @@ update msg model =
 -- VIEW
 
 
-view : (Msg -> msg) -> Model -> Html msg
-view tag model =
+view : Model -> Html Msg
+view model =
     Html.div
-        [ onMouseEnter (tag MouseEnter)
-        , onMouseLeave (tag MouseLeave)
+        [ onMouseEnter MouseEnter
+        , onMouseLeave MouseLeave
         , Html.Attributes.style
             [ ( "backgroundColor"
               , if model.hover then

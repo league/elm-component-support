@@ -53,16 +53,16 @@ update msg model =
 -- VIEW
 
 
-view : (Msg -> msg) -> Model -> String -> Html msg
-view tag model title =
-    viewWithContent tag model [ text title ]
+view : Model -> String -> Html Msg
+view model title =
+    viewWithContent model [ text title ]
 
 
-viewWithContent : (Msg -> msg) -> Model -> List (Html msg) -> Html msg
-viewWithContent tag model content =
+viewWithContent : Model -> List (Html Msg) -> Html Msg
+viewWithContent model content =
     let
         attributes =
-            [ onClick (tag Click)
+            [ onClick Click
             , disabled model.disabled
             ]
     in
